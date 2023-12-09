@@ -1,0 +1,19 @@
+Test task
+
+[
+    {'state': 'q0', 'increment': 1, 'goto': 'q1', 'next_state': 'q2'},
+    {'state': 'q1', 'increment': 2, 'goto': 'q2', 'next_state': 'q3'},
+    {'state': 'q2', 'increment': 3, 'goto': 'q3', 'next_state': 'q4'},
+    {'state': 'q3', 'increment': 4, 'goto': 'q4', 'next_state': 'q5'},
+    {'state': 'q4', 'increment': 5, 'goto': 'q5', 'next_state': 'q6'},
+    {'state': 'q5', 'increment': 6, 'goto': 'q6', 'next_state': 'q7'},
+    {'state': 'q6', 'increment': 7, 'goto': 'q7', 'next_state': 'q8'},
+    {'state': 'q7', 'increment': 8, 'goto': 'q8', 'next_state': 'q9'},
+    {'state': 'q8', 'increment': 9, 'goto': 'q9', 'next_state': 'q10'},
+    {'state': 'q9', 'increment': 10, 'goto': 'q10', 'next_state': 'q11'},
+    {'state': 'q10', 'increment': 11, 'goto': 'q11', 'next_state': 'q12'},
+    {'state': 'q11', 'increment': 12, 'goto': 'q12', 'next_state': 'q13'},
+    {'state': 'q12', 'increment': 13, 'goto': 'q13', 'next_state': 'q14'},
+    {'state': 'q13', 'increment': 14, 'goto': 'q14', 'next_state': 'q15'},
+    {'state': 'q14', 'increment': 15, 'goto': None, 'next_state': 'halt'}
+]
