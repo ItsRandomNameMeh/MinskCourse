@@ -1,11 +1,17 @@
 import sys
+import os
+from datetime import datetime
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtWidgets import QWidget, QLabel, QLineEdit, QFileDialog, QPushButton, QVBoxLayout, QTextEdit, QScrollArea, \
     QGroupBox, QFormLayout
+
+import logicclass
 from logicclass import MinskCounterMachine
 
 
 class MinskMachineApp(QWidget):
+
+    __counters = 16
     def __init__(self):
         super().__init__()
 
@@ -35,7 +41,7 @@ class MinskMachineApp(QWidget):
         self.scroll_layout = QFormLayout(self.scroll_widget)
 
         # Инициализируем счетчики значениями по умолчанию
-        for i in range(15):
+        for i in range(self.__counters):
             input_box = QLineEdit(self)
             input_box.setText('0')  # Задаем значение по умолчанию
             self.counters_inputs.append(input_box)
@@ -102,6 +108,11 @@ class MinskMachineApp(QWidget):
         result_text = f"\nFinal Configuration: {all_configs[-1]}"
         self.result_output.insertPlainText(result_text)
 
+        logs_folder = "Logs"
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        file_path = os.path.join(logs_folder, f"{timestamp}.txt")
+        with open(file_path, 'w') as file:
+            file.write(result_text)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
