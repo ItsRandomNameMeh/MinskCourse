@@ -5,7 +5,7 @@ from PyQt5.QtWidgets import QApplication
 from PyQt5.QtWidgets import QWidget, QLabel, QLineEdit, QFileDialog, QPushButton, QVBoxLayout, QTextEdit, QScrollArea, \
     QGroupBox, QFormLayout
 
-import logicclass
+
 from logicclass import MinskCounterMachine
 
 
