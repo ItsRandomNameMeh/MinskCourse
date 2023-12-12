@@ -1,7 +1,9 @@
 import sys
 from PyQt5.QtWidgets import QApplication
-from PyQt5.QtWidgets import QWidget, QLabel, QLineEdit, QPushButton, QVBoxLayout, QTextEdit, QScrollArea, QGroupBox, QFormLayout
+from PyQt5.QtWidgets import QWidget, QLabel, QLineEdit, QFileDialog, QPushButton, QVBoxLayout, QTextEdit, QScrollArea, \
+    QGroupBox, QFormLayout
 from logicclass import MinskCounterMachine
+
 
 class MinskMachineApp(QWidget):
     def __init__(self):
@@ -53,18 +55,30 @@ class MinskMachineApp(QWidget):
         self.result_output.setReadOnly(True)
 
         # Создаем основную композицию
+        self.load_file_button = QPushButton('Load Transitions from File', self)
+        self.load_file_button.clicked.connect(self.load_transitions_from_file)
+
+        # Основная композиция
         main_layout = QVBoxLayout(self)
         main_layout.addWidget(self.state_label)
         main_layout.addWidget(self.state_input)
-
-        # Добавляем QScrollArea для счетчиков
         main_layout.addWidget(self.scroll_area)
-
         main_layout.addWidget(self.transitions_label)
         main_layout.addWidget(self.transitions_input)
+        main_layout.addWidget(self.load_file_button)  # Добавляем кнопку
         main_layout.addWidget(self.run_button)
         main_layout.addWidget(self.result_label)
         main_layout.addWidget(self.result_output)
+
+    def load_transitions_from_file(self):
+        options = QFileDialog.Options()
+        options |= QFileDialog.ReadOnly
+        file_name, _ = QFileDialog.getOpenFileName(self, "Choose a file", "", "Text Files (.txt);;All Files ()",
+                                                  options=options)
+        if file_name:
+            with open(file_name, 'r') as file:
+                transitions_data = file.read()
+                self.transitions_input.setPlainText(transitions_data)
 
     def run_simulation(self):
         # Очищаем поле вывода перед каждой генерацией
@@ -73,7 +87,8 @@ class MinskMachineApp(QWidget):
         initial_state = self.state_input.text()
         initial_counters = [int(input_box.text()) for input_box in self.counters_inputs]
 
-        self.minsk_machine.transitions = eval(self.transitions_input.toPlainText())  # Правильно обработать строку с переходами
+        self.minsk_machine.transitions = eval(
+            self.transitions_input.toPlainText())  # Правильно обработать строку с переходами
 
         initial_config = (initial_state, initial_counters)
         all_configs = self.minsk_machine.execute(initial_config)
