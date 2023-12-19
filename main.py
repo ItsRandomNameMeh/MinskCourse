@@ -11,7 +11,7 @@ from logicclass import MinskCounterMachine
 
 class MinskMachineApp(QWidget):
 
-    __counters = 16
+    __counters = 15
     def __init__(self):
         super().__init__()
 
@@ -91,6 +91,16 @@ class MinskMachineApp(QWidget):
         self.result_output.clear()
 
         initial_state = self.state_input.text()
+
+        try:
+            if int(input_box.text() for input_box in self.counters_inputs)%10 > 0:
+                raise ValueError("counter must be integer value")
+            else:
+                pass
+        except:
+            raise TypeError("counter must be value, not string or something")
+
+
         initial_counters = [int(input_box.text()) for input_box in self.counters_inputs]
 
         self.minsk_machine.transitions = eval(
